@@ -18,9 +18,9 @@ public class KisoKadai3 {
 	//メニュー
 	public static void menu() {
 		System.out.println("+-----------------+");
-		System.out.println("|･  newfile   : 1 |");
+		System.out.println("|･   create   : 1 |");
 		System.out.println("|･    load    : 2 |");
-		System.out.println("|･ overewite  : 3 |");
+		System.out.println("|･ overewrite : 3 |");
 		System.out.println("|･ postscript : 4 |");
 		System.out.println("|･    exit    : 5 |");
 		System.out.println("+-----------------+");
@@ -31,7 +31,7 @@ public class KisoKadai3 {
 			command = input.readLine();
 			switch(command){
 				case "1":
-					newfile();
+					create();
 				case "2":
 					load();
 				case "3":
@@ -158,6 +158,31 @@ public class KisoKadai3 {
 		countinue();
 	}
 
+	//新規メニュー
+		public static void create() {
+			System.out.println("file or directory?");
+
+			BufferedReader input2 = new BufferedReader(new InputStreamReader(System.in));
+			String command;
+			try {
+				command = input2.readLine();
+
+			switch(command){
+				case "file":
+					newfile();
+				case "directory":
+					newdirectory();
+				default :
+					System.out.println("無効なコマンドです。");
+					System.out.println("もう一度入力して下さい。");
+					create();
+			}
+			} catch (IOException err) {
+				System.out.println(err);
+				countinue();
+			}
+		}
+
 	//ファイルの作成
 	public static void newfile() {
 		System.out.println("newfile name?");
@@ -176,6 +201,26 @@ public class KisoKadai3 {
 		}
 		countinue();
 	}
+
+	//フォルダの作成
+		public static void newdirectory() {
+			System.out.println("newdirectory name?");
+			BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+			String nfname;
+			try {
+				nfname = input.readLine();
+				File newfile;
+				newfile = new File("C:\\Users\\internous\\"+nfname);
+				newfile.mkdir();
+				System.out.println(nfname+"を作成しました。");
+				System.out.println("Path:"+System.getProperty("user.home")+"\\"+nfname);
+			}catch(IOException err) {
+				System.out.println(err);
+				countinue();
+			}
+			countinue();
+		}
+
 	//ファイル上書き
 	public static void overwrite() {
 		System.out.println("file name?");
